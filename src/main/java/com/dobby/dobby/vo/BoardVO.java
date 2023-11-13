@@ -11,8 +11,10 @@ public class BoardVO {
     private String sub;
     private Long boardId;
     private String userId;
+    private String customerId;
+    private Long topicId;
     private String title;
     private String content;
     private String img;
-    private Date regDate;
+    private Date writeDate;
 }

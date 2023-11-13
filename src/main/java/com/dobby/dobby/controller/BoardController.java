@@ -22,21 +22,23 @@ public class BoardController {
         List<BoardVO> list = dao.selectBoardList();
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
-//    // GET : 게시글 상세 조회
-//    @GetMapping("/detail/{id}")
-//    public ResponseEntity<BoardVO> boardDetail(@PathVariable Long id) {
-//        BoardDAO dao = new BoardDAO();
-//        BoardVO boardVO = dao.selectBoardDetail(id);
-//        return new ResponseEntity<>(boardVO, HttpStatus.OK);
-//    }
-//    // POST : 게시글 등록
-//    @PostMapping("/new")
-//    public ResponseEntity<Boolean> boardRegister(@RequestBody BoardVO boardVO) {
-//        BoardDAO dao = new BoardDAO();
-//        boolean isTrue = dao.insertBoard(boardVO);
-//        System.out.println("게시글 등록 결과 : " + isTrue);
-//        return new ResponseEntity<>(isTrue, HttpStatus.OK);
-//    }
+    // GET : 게시글 상세 조회
+    @ResponseBody
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<BoardVO> boardDetail(@PathVariable Long id) {
+        System.out.println("게시글 조회 ID : " + id);
+        BoardDAO dao = new BoardDAO();
+        BoardVO boardVO = dao.selectBoardDetail(id);
+        return new ResponseEntity<>(boardVO, HttpStatus.OK);
+    }
+    // POST : 게시글 등록
+    @PostMapping("/new")
+    public ResponseEntity<Boolean> boardRegister(@RequestBody BoardVO boardVO) {
+        BoardDAO dao = new BoardDAO();
+        boolean isTrue = dao.insertBoard(boardVO);
+        System.out.println("게시글 등록 결과 : " + isTrue);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
+    }
 //    // PUT : 게시글 수정
 //    @PutMapping("/{id}")
 //    public ResponseEntity<Boolean> boardModify(@RequestBody BoardVO boardVO) {
