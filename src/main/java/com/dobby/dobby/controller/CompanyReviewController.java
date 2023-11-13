@@ -3,8 +3,7 @@ package com.dobby.dobby.controller;
 
 import com.dobby.dobby.dao.CompanyDAO;
 import com.dobby.dobby.dao.CompanyReviewDAO;
-import com.dobby.dobby.vo.CompanyFeedbackVO;
-import com.dobby.dobby.vo.CompanyInfoVO;
+import com.dobby.dobby.vo.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,5 +41,23 @@ public class CompanyReviewController {
         List<CompanyFeedbackVO> list = dao.companyFeedbackSelect(companyId);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
+
+    // GET :  회사에 대한 게시글 가져 오기
+    @GetMapping("companypost/{companyId}")
+    public ResponseEntity<List<CompanyPostVO>>companyPost(@PathVariable String companyId) {
+        CompanyReviewDAO dao = new CompanyReviewDAO();
+        List<CompanyPostVO> list = dao.companyPostSelect(companyId);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    // GET : 회사 채용 공고 게시글 가져 오기
+    @GetMapping("companyjobposting/{companyId}")
+    public ResponseEntity<List<CompanyJobPostingVO>>companyJobPosting(@PathVariable String companyId) {
+        CompanyReviewDAO dao = new CompanyReviewDAO();
+        List<CompanyJobPostingVO> list = dao.companyJobPostingSelect(companyId);
+           return new ResponseEntity<>(list, HttpStatus.OK);
+
+    }
+
 
 }

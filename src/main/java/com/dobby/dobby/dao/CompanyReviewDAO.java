@@ -1,8 +1,7 @@
 package com.dobby.dobby.dao;
 
 import com.dobby.dobby.common.Common;
-import com.dobby.dobby.vo.CompanyInfoVO;
-import com.dobby.dobby.vo.CompanyFeedbackVO;
+import com.dobby.dobby.vo.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -160,6 +159,92 @@ public class CompanyReviewDAO {
         }
         return list;
     }
+
+    // 4. 회사 아이디로 게시판 들고 오기
+    public List<CompanyPostVO> companyPostSelect(String getCompanyId) {
+        List<CompanyPostVO> list = new ArrayList<>();
+        String sql = null;
+        System.out.println("COMPANYID : " + getCompanyId);
+        try {
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            sql = "SELECT P.*, CO.ID AS COMPANY_ID FROM POST P " +
+                    "JOIN CUSTOMER C ON P.CUSTOMER_ID = C.ID " +
+                    "JOIN COMPANY CO ON C.COMPANY_ID = CO.ID " +
+                    "WHERE CO.ID = '" + getCompanyId + "'" + "AND P.TOPIC_ID <> 14" ;
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                String id = rs.getString("ID");
+                String customerId = rs.getString("CUSTOMER_ID");
+                String topicId = rs.getString("TOPIC_ID");
+                String title = rs.getString("TITLE");
+                String content = rs.getString("CONTENT");
+                Timestamp writeDate = rs.getTimestamp("WRITE_DATE");
+                int viewCount = rs.getInt("VIEW_COUNT");
+                int likeCount = rs.getInt("LIKE_COUNT");
+
+                // CompanyPostVO에 게시글 정보 담기
+                CompanyPostVO vo = new CompanyPostVO();
+                vo.setId(id);
+                vo.setCustomerId(customerId);
+                vo.setTopicId(topicId);
+                vo.setTitle(title);
+                vo.setContent(content);
+                vo.setWriteDate(writeDate);
+                vo.setViewCount(viewCount);
+                vo.setLikeCount(likeCount);
+                //리스트에 추가
+                list.add(vo);
+            }
+            Common.close(rs);
+            Common.close(stmt);
+            Common.close(conn);
+        } catch  (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    // 5. 회사가 올린 채용 공고 게시판 가져오기
+    public List<CompanyJobPostingVO> companyJobPostingSelect(String getCompanyId) {
+        List<CompanyJobPostingVO> list = new ArrayList<>();
+        String sql = null;
+        System.out.println("COMPANYID : " + getCompanyId);
+        try {
+            conn = Common.getConnection();
+            stmt = conn.createStatement();
+            sql = "SELECT * FROM JOBPOSTING WHERE COMPANY_ID = " + getCompanyId;
+            rs = stmt.executeQuery(sql);
+
+            while(rs.next()) {
+                String id = rs.getString("ID");
+                String companyId = rs.getString("COMPANY_ID");
+                String title = rs.getString("TITLE");
+                String description = rs.getString("DESCRIPTION");
+                String qualification = rs.getString("QUALIFICATION");
+                Timestamp deadline = rs.getTimestamp("DEADLINE");
+                String image = rs.getString("IMAGE");
+
+                // CompanyJobPostingVO 채용 공고 담기
+                CompanyJobPostingVO vo = new CompanyJobPostingVO();
+                vo.setId(id);
+                vo.setCompanyId(companyId);
+                vo.setTitle(title);
+                vo.setDescription(description);
+                vo.setQualification(qualification);
+                vo.setDeadline(deadline);
+                vo.setImage(image);
+                //리스트에 추가
+                list.add(vo);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+
 
 }
 
