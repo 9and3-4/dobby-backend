@@ -39,7 +39,8 @@ public class ManageCompanyCustomerInfoDAO {
                     "CUSTOMER.IS_ACTIVE AS IS_ACTIVE " +
                     "FROM CUSTOMER " +
                     "INNER JOIN COMPANY ON CUSTOMER.COMPANY_ID = COMPANY.ID " +
-                    "WHERE CUSTOMER.ROLE = 'company'";
+                    "WHERE CUSTOMER.ROLE = 'company'" +
+                    "ORDER BY DECODE(IS_ACTIVE, 'inactive', 0, 'active', 1, 'quit', 2), id DESC";
             rs = stmt.executeQuery(sql);
             System.out.println(rs);
 
