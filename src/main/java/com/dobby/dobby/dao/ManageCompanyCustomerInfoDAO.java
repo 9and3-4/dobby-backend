@@ -24,16 +24,19 @@ public class ManageCompanyCustomerInfoDAO {
             conn = Common.getConnection();
             stmt = conn.createStatement();
             sql = "SELECT " +
-                    "COMPANY.NAME AS COMPANYNAME, " +
-                    "COMPANY.CEO AS COMPANYCEO, " +
-                    "COMPANY.SIZE_SCALE AS COMPANYSIZESCALE, " +
-                    "COMPANY.BUSINESS_CATEGORY AS COMPANYBUSINESSCATEGORY, " +
-                    "COMPANY.URL AS COMPANYURL, " +
-                    "CUSTOMER.CONTACT_NUMBER AS CUSTOMERCONTACTNUMBER, " +
-                    "CUSTOMER.EMAIL AS CUSTOMEREMAIL, " +
-                    "CUSTOMER.PASSWORD AS CUSTOMERPASSWORD, " +
-                    "CUSTOMER.ROLE AS CUSTOMERROLE, " +
-                    "CUSTOMER.IS_ACTIVE AS CUSTOMERISACTIVE " +
+                    "CUSTOMER.ID AS ID, " +
+                    "COMPANY.ID AS COMPANY_ID, " +
+                    "COMPANY.NAME AS COMPANY_NAME, " +
+                    "COMPANY.CEO AS CEO, " +
+                    "COMPANY.SIZE_SCALE AS SIZE_SCALE, " +
+                    "COMPANY.BUSINESS_CATEGORY AS BUSINESS_CATEGORY, " +
+                    "COMPANY.URL AS URL, " +
+                    "CUSTOMER.CONTACT_NUMBER AS CUSTOMER_CONTACT_NUMBER, " +
+                    "COMPANY.CONTACT_NUMBER AS COMPANY_CONTACT_NUMBER, " +
+                    "CUSTOMER.EMAIL AS EMAIL, " +
+                    "CUSTOMER.PASSWORD AS PASSWORD, " +
+                    "CUSTOMER.ROLE AS ROLE, " +
+                    "CUSTOMER.IS_ACTIVE AS IS_ACTIVE " +
                     "FROM CUSTOMER " +
                     "INNER JOIN COMPANY ON CUSTOMER.COMPANY_ID = COMPANY.ID " +
                     "WHERE CUSTOMER.ROLE = 'company'";
@@ -41,25 +44,31 @@ public class ManageCompanyCustomerInfoDAO {
             System.out.println(rs);
 
             while(rs.next()) {
-                String companyName = rs.getString("COMPANYNAME");
-                String ceo = rs.getString("COMPANYCEO");
-                String sizeScale = rs.getString("COMPANYSIZESCALE");
-                String businessCategory = rs.getString("COMPANYBUSINESSCATEGORY");
-                String companyUrl = rs.getString("COMPANYURL");
-                String customerContact = rs.getString("CUSTOMERCONTACTNUMBER");
-                String email = rs.getString("CUSTOMEREMAIL");
-                String password = rs.getString("CUSTOMERPASSWORD");
-                String role = rs.getString("CUSTOMERROLE");
-                String isActive = rs.getString("CUSTOMERISACTIVE");
+                String id = rs.getString("ID");
+                String companyId = rs.getString("COMPANY_ID");
+                String companyName = rs.getString("COMPANY_NAME");
+                String ceo = rs.getString("CEO");
+                String sizeScale = rs.getString("SIZE_SCALE");
+                String businessCategory = rs.getString("BUSINESS_CATEGORY");
+                String companyUrl = rs.getString("URL");
+                String customerContact = rs.getString("CUSTOMER_CONTACT_NUMBER");
+                String companyContact = rs.getString("COMPANY_CONTACT_NUMBER");
+                String email = rs.getString("EMAIL");
+                String password = rs.getString("PASSWORD");
+                String role = rs.getString("ROLE");
+                String isActive = rs.getString("IS_ACTIVE");
 
 
                 ManageCompanyCustomerInfoVO vo = new ManageCompanyCustomerInfoVO();
+                vo.setId(id);
+                vo.setCompanyId(companyId);
                 vo.setCompanyName(companyName);
                 vo.setCeo(ceo);
                 vo.setSizeScale(sizeScale);
                 vo.setBusinessCategory(businessCategory);
                 vo.setCompanyUrl(companyUrl);
                 vo.setCustomerContact(customerContact);
+                vo.setCompanyContact(companyContact);
                 vo.setEmail(email);
                 vo.setPassword(password);
                 vo.setRole(role);

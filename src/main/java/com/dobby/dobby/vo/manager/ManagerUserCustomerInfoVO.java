@@ -6,6 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ManagerUserCustomerInfoVO {
+    private String id;
     private String name;
     private String nickName;
     private String email;
