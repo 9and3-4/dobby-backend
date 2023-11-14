@@ -3,6 +3,7 @@ package com.dobby.dobby.controller;
 
 import com.dobby.dobby.dao.BoardDAO;
 import com.dobby.dobby.vo.BoardVO;
+import jdk.jfr.Category;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,23 @@ public class BoardController {
         BoardVO boardVO = dao.selectBoardDetail(id);
         return new ResponseEntity<>(boardVO, HttpStatus.OK);
     }
+
+    //get : major카테고리 조회
+    @GetMapping("/categories")
+    public ResponseEntity<List<String>> getMajorCategoryList() {
+        BoardDAO dao = new BoardDAO();
+        List<String> categories = dao.getMajorCategoryList();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
+    //get : sub카테고리 조회
+    @GetMapping("/subcategories")
+    public ResponseEntity<List<String>> getMajorCategoryList(@RequestParam String id) {
+        BoardDAO dao = new BoardDAO();
+        List<String> categories = dao.getSubCategoryList(id);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
     // POST : 게시글 등록
     @PostMapping("/new")
     public ResponseEntity<Boolean> boardRegister(@RequestBody BoardVO boardVO) {
@@ -39,18 +57,23 @@ public class BoardController {
         System.out.println("게시글 등록 결과 : " + isTrue);
         return new ResponseEntity<>(isTrue, HttpStatus.OK);
     }
-//    // PUT : 게시글 수정
-//    @PutMapping("/{id}")
-//    public ResponseEntity<Boolean> boardModify(@RequestBody BoardVO boardVO) {
-//        BoardDAO dao = new BoardDAO();
-//        boolean isTrue = dao.updateBoard(boardVO);
-//        return new ResponseEntity<>(isTrue, HttpStatus.OK);
-//    }
-//    // DELETE : 게시글 삭제
-//    @DeleteMapping("/{id}")
-//    public ResponseEntity<Boolean> boardDelete(@PathVariable Long id) {
-//        BoardDAO dao = new BoardDAO();
-//        boolean isTrue = dao.deleteBoard(id);
-//        return new ResponseEntity<>(isTrue, HttpStatus.OK);
-//    }
+
+
+
+    // PUT : 게시글 수정
+    @PutMapping("/{id}")
+    public ResponseEntity<Boolean> boardModify(@RequestBody BoardVO boardVO) {
+        BoardDAO dao = new BoardDAO();
+        boolean isTrue = dao.updateBoard(boardVO);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
+    }
+    // DELETE : 게시글 삭제
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> boardDelete(@PathVariable Long id) {
+        BoardDAO dao = new BoardDAO();
+        boolean isTrue = dao.deleteBoard(id);
+        return new ResponseEntity<>(isTrue, HttpStatus.OK);
+    }
+
+
 }
