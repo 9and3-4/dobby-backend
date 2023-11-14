@@ -10,7 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ManageCompanyCustomerInfoDAO {
+public class ManagerCompanyCustomerInfoDAO {
     private Connection conn = null;
     private Statement stmt = null;
     private ResultSet rs = null;
