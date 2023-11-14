@@ -32,7 +32,8 @@ public class ManagerJobPostingInfoDAO {
                 "FROM\n" +
                 "  JOBPOSTING jp\n" +
                 "JOIN\n" +
-                "  COMPANY c ON jp.COMPANY_ID = c.ID";
+                "  COMPANY c ON jp.COMPANY_ID = c.ID " +
+                "ORDER BY jp.ISENABLED DESC, jp.ID DESC";
 
         try {
             conn = Common.getConnection();
