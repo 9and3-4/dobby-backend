@@ -41,14 +41,36 @@ public class ManagerController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    // POST : 로그인
+    // POST : customer is_Active
     @PostMapping("/state")
-    public ResponseEntity<Boolean> memberLogin(@RequestBody Map<String, String> cutomerData) {
+    public ResponseEntity<Boolean> updateCustomerIsActive(@RequestBody Map<String, String> cutomerData) {
         String isActive = cutomerData.get("isActive");
         String id = cutomerData.get("id");
         System.out.println("ISACTIVE : " + isActive);
         System.out.println("ID : " + id);
         ManagerUpdateStateDAO dao = new ManagerUpdateStateDAO();
+        boolean result = dao.setIsActive(isActive, id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    // POST : jobPosting is_Active
+    @PostMapping("/jobpoststate")
+    public ResponseEntity<Boolean> updateJobPostIsEnabled(@RequestBody Map<String, String> jobPostingData) {
+        String isActive = jobPostingData.get("isActive");
+        String id = jobPostingData.get("id");
+        System.out.println("ISENABLED : " + isActive);
+        System.out.println("ID : " + id);
+        ManagerUpdateJobPostStateDAO dao = new ManagerUpdateJobPostStateDAO();
+        boolean result = dao.setIsActive(isActive, id);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    // POST : adList is_Active
+    @PostMapping("/adliststate")
+    public ResponseEntity<Boolean> updateAdListIsEnabled(@RequestBody Map<String, String> adListData) {
+        String isActive = adListData.get("isActive");
+        String id = adListData.get("id");
+        System.out.println("ISENABLED : " + isActive);
+        System.out.println("ID : " + id);
+        ManagerUpdateAdListStateDAO dao = new ManagerUpdateAdListStateDAO();
         boolean result = dao.setIsActive(isActive, id);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
