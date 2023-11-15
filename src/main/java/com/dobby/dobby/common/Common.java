@@ -14,6 +14,7 @@ public class Common {
 
     // CORS 설정
     public final static String CORS_ORIGIN = "http://localhost:3000";
+//    public final static String CORS_ORIGIN = "http://192.168.10.20:3000";
 
 
     public static Connection getConnection() {

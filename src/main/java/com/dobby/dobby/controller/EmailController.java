@@ -17,8 +17,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+import static com.dobby.dobby.common.Common.CORS_ORIGIN;
 
-@CrossOrigin(origins = "http://localhost:3000")
+
+@CrossOrigin(origins = CORS_ORIGIN)
 @RestController
 @RequestMapping("/email")
 public class EmailController {

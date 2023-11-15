@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import static com.dobby.dobby.common.Common.CORS_ORIGIN;
+
 // 회사 소개 게시판
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = CORS_ORIGIN)
 @RestController
 @RequestMapping("/companyreview")
 public class CompanyReviewController {

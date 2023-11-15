@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+import static com.dobby.dobby.common.Common.CORS_ORIGIN;
+
+@CrossOrigin(origins = CORS_ORIGIN)
 @RestController
 @RequestMapping("/companymypage")
 public class CompanyMyPageController {

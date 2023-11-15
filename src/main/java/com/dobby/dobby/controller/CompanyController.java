@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+import static com.dobby.dobby.common.Common.CORS_ORIGIN;
+
+@CrossOrigin(origins = CORS_ORIGIN)
 @RestController
 @RequestMapping("/company")
 public class CompanyController {

@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:3000")
+import static com.dobby.dobby.common.Common.CORS_ORIGIN;
+
+@CrossOrigin(origins = CORS_ORIGIN)
 @RestController
 @RequestMapping("/advertisement")
 public class AdvertisementController {

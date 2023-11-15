@@ -71,8 +71,11 @@ public class CommentDAO {
             String sql = "INSERT INTO REPLY (ID, CUSTOMER_ID, POST_ID, WRITE_DATE, CONTENT) " +
                     "VALUES (REPLY_ID_SEQ.NEXTVAL, ?, ?, SYSDATE, ?)";
             pStmt = conn.prepareStatement(sql);
-            pStmt.setLong(1, commentVO.getPostId());
-            pStmt.setLong(2, commentVO.getCustomerId());
+//            System.out.println(commentVO.getPostId());
+//            System.out.println(commentVO.getCustomerId());
+//            System.out.println(commentVO.getContent());
+            pStmt.setLong(1, commentVO.getCustomerId());
+            pStmt.setLong(2, commentVO.getPostId());
             pStmt.setString(3, commentVO.getContent());
 
             int result = pStmt.executeUpdate();
