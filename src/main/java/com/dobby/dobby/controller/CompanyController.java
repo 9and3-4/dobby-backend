@@ -12,7 +12,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/company")
 public class CompanyController {
     // GET : 회원 조회
     @GetMapping("/customercompany")
