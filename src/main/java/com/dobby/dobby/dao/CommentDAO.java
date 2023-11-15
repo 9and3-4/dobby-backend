@@ -50,10 +50,10 @@ public class CommentDAO {
             rs = stmt.executeQuery(sql);
             while(rs.next()) {
                 commentVO.setId(rs.getLong("ID"));
-                commentVO.setPostId(rs.getLong("POST_ID"));
                 commentVO.setCustomerId(rs.getLong("CUSTOMER_ID"));
-                commentVO.setContent(rs.getString("CONTENT"));
+                commentVO.setPostId(rs.getLong("POST_ID"));
                 commentVO.setWriteDate(rs.getDate("WRITE_DATE"));
+                commentVO.setContent(rs.getString("CONTENT"));
             }
         } catch(Exception e) {
             e.printStackTrace();
@@ -68,22 +68,22 @@ public class CommentDAO {
         boolean isInsert = false;
         try {
             conn = Common.getConnection();
-            stmt = conn.createStatement();
+            String sql = "INSERT INTO REPLY (ID, CUSTOMER_ID, POST_ID, WRITE_DATE, CONTENT) " +
+                    "VALUES (REPLY_ID_SEQ.NEXTVAL, ?, ?, SYSDATE, ?)";
+            pStmt = conn.prepareStatement(sql);
+            pStmt.setLong(1, commentVO.getPostId());
+            pStmt.setLong(2, commentVO.getCustomerId());
+            pStmt.setString(3, commentVO.getContent());
 
-            // CommentVO에서 PostId가 null이 아닌 경우에만 작업을 수행
-            if (commentVO.getId() != null) {
-                String sql = "INSERT INTO REPLY VALUES(REPLY_ID_SEQ.NEXTVAL, ?, ?, ?, SYSDATE)";
-                System.out.println("sql 확인 : "+sql);
-                pStmt = conn.prepareStatement(sql);
-//                Long customerId = commentVO.getCustomerId() != null ? commentVO.getCustomerId() : 0L;
-                pStmt.setLong(1, commentVO.getId());
-                pStmt.setLong(2, commentVO.getCustomerId());
-                pStmt.setString(3, commentVO.getContent());
-                int result = pStmt.executeUpdate();
-                if(result == 1) isInsert = true;
-            } else {
-                System.out.println("댓글 인서트 불가");
-            }
+            int result = pStmt.executeUpdate();
+            if(result == 1) isInsert = true;
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        Common.close(pStmt);
+        Common.close(conn);
+        return isInsert;
+    }
 
 
 //            String sql = "INSERT INTO REPLY (ID, CUSTOMER_ID, POST_ID, WRITE_DATE, CONTENT) " +
@@ -103,13 +103,8 @@ public class CommentDAO {
 
 //            int result = pStmt.executeUpdate();
 //            if(result == 1) isInsert = true;
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        Common.close(pStmt);
-        Common.close(conn);
-        return isInsert;
-    }
+
+
     // 댓글 수정
     public boolean updateComment(CommentVO commentVO) {
         String sql = "UPDATE COMMENTS SET CONTENT = ? WHERE COMMENT_ID = ?";

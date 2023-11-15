@@ -118,23 +118,6 @@ public class BoardDAO {
 
 
 
-//            // 토픽 등록 쿼리
-//            String topicSql = "INSERT INTO TOPIC (ID, MAJOR_CATEGORY, SUB_CATEGORY) VALUES (board_sequence.CURRVAL, ?, ?)";
-//            pStmt = conn.prepareStatement(postSql);
-//            pStmt.setString(1, boardVO.getTitle());
-//            pStmt.setString(2, boardVO.getContent());
-//            pStmt.setTimestamp(3, new Timestamp(System.currentTimeMillis())); // 현재 시간으로 설정
-//            int result = pStmt.executeUpdate();
-//            if(result == 1) isInsert = true;
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//        Common.close(pStmt);
-//        Common.close(conn);
-//        return isInsert;
-//    }
-
-
     // 게시글 수정
     public boolean updateBoard(BoardVO boardVO) {
         String sql = "UPDATE POST SET TITLE = ?, CONTENT = ? WHERE ID = ?";

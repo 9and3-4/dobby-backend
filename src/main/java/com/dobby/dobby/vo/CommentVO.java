@@ -16,4 +16,5 @@ public class CommentVO {
     private Long postId;
     private Date writeDate;
     private String content;
+    private Long topicId;
 }
