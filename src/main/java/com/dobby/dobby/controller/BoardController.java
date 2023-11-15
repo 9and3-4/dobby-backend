@@ -33,7 +33,7 @@ public class BoardController {
         return new ResponseEntity<>(boardVO, HttpStatus.OK);
     }
 
-    //get : major카테고리 조회
+    //get : 대분류 조회
     @GetMapping("/categories")
     public ResponseEntity<List<String>> getMajorCategoryList() {
         BoardDAO dao = new BoardDAO();
@@ -41,17 +41,20 @@ public class BoardController {
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
-    //get : sub카테고리 조회
-    @GetMapping("/subcategories")
-    public ResponseEntity<List<String>> getMajorCategoryList(@RequestParam String id) {
+    //get : 소분류 조회
+    @GetMapping("/subcategories/{majorCategory}")
+    public ResponseEntity<List<String>> getMajorCategoryList(@PathVariable String majorCategory) {
+        System.out.println("소분류 확인:" + majorCategory);
         BoardDAO dao = new BoardDAO();
-        List<String> categories = dao.getSubCategoryList(id);
+        List<String> categories = dao.getSubCategoryList(majorCategory);
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
+
 
     // POST : 게시글 등록
     @PostMapping("/new")
     public ResponseEntity<Boolean> boardRegister(@RequestBody BoardVO boardVO) {
+       System.out.println(boardVO.getCustomerId());
         BoardDAO dao = new BoardDAO();
         boolean isTrue = dao.insertBoard(boardVO);
         System.out.println("게시글 등록 결과 : " + isTrue);
