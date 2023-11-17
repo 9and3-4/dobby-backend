@@ -1,22 +1,17 @@
 package com.dobby.dobby.controller;
 
-import com.dobby.dobby.dao.CustomerDAO;
-import com.dobby.dobby.vo.CustomerVO;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
-import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.util.UUID;
+
 
 import static com.dobby.dobby.common.Common.CORS_ORIGIN;
 
