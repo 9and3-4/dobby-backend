@@ -13,9 +13,10 @@ public class CompanyJobListVO {
     private String id;
     private String companyId;
     private String title;
-    private String  description;
+    private String description;
     private String qualification;
     private Timestamp deadLine;
     private String image;
+    private String isEnabled;
 
 }

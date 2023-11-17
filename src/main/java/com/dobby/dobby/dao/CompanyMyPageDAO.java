@@ -24,8 +24,8 @@ public class CompanyMyPageDAO {
         try {
             conn = Common.getConnection();
             stmt = conn.createStatement();
-//            sql = "SELECT * FROM JOBPOSTING WHERE COMPANY_ID = ?";
-            sql = "SELECT * FROM JOBPOSTING";
+            sql =  "SELECT * FROM JOBPOSTING WHERE COMPANY_ID IN (SELECT COMPANY_ID FROM CUSTOMER WHERE EMAIL = '" + getCompanyId + "')";
+            System.out.println("SQL Query: " + sql); // 디버깅용 출력
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -36,6 +36,7 @@ public class CompanyMyPageDAO {
                 String qualification = rs.getString("QUALIFICATION");
                 Timestamp deadLine = rs.getTimestamp("DEADLINE");
                 String image = rs.getString("IMAGE");
+                String isEnabled = rs.getString("ISENABLED");
 
                 // CompanyJobListVO에 기업 정보 설정
                 CompanyJobListVO vo = new CompanyJobListVO();
@@ -46,9 +47,10 @@ public class CompanyMyPageDAO {
                 vo.setQualification(qualification);
                 vo.setDeadLine(deadLine);
                 vo.setImage(image);
+                vo.setIsEnabled(isEnabled);
                 // 리스트에 추가
                 list.add(vo);
-                System.out.println(list);
+                System.out.println("list : " + list);
             }
             Common.close(rs);
             Common.close(stmt);

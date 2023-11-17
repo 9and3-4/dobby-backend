@@ -12,16 +12,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.dobby.dobby.common.Common.CORS_ORIGIN;
-
-@CrossOrigin(origins = CORS_ORIGIN)
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/companymypage")
 public class CompanyMyPageController {
     // GET : 채용 공고 가져오기
-    @GetMapping("/companyjobposting")
-    public ResponseEntity<List<CompanyJobListVO>>companyJobList(@RequestParam String companyId) {
-        System.out.println("CompanyId : " + companyId);
+    @GetMapping("/companyjobposting/{companyId}")
+    public ResponseEntity<List<CompanyJobListVO>> companyJobList(@PathVariable String companyId) {
+        System.out.println("CompanyId: " + companyId);
         CompanyMyPageDAO dao = new CompanyMyPageDAO();
         List<CompanyJobListVO> list = dao.companyJobListSelect(companyId);
         return new ResponseEntity<>(list, HttpStatus.OK);
